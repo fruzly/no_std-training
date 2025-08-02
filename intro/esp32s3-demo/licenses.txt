@@ -1,0 +1,9 @@
+[1m[32m(Apache-2.0 OR MIT) AND Unicode-3.0[0m (1): unicode-ident
+[1m[32mAGPL-3.0[0m (1): evalexpr
+[1m[32mApache-2.0 OR BSL-1.0[0m (1): ryu
+[1m[32mApache-2.0 OR MIT[0m (101): anyhow, autocfg, basic-toml, bitfield, bitfield-macros, bitflags, cfg-if, critical-section, crypto-common, digest, embassy-embedded-hal, embassy-futures, embassy-hal-internal, embassy-sync, embassy-sync, embassy-time, embassy-time-driver, embassy-usb-driver, embassy-usb-synopsys-otg, embedded-can, embedded-hal, embedded-hal, embedded-hal-async, embedded-io, embedded-io-async, embedded-storage, embedded-storage-async, enumset, equivalent, esp-backtrace, esp-bootloader-esp-idf, esp-build, esp-config, esp-config, esp-hal, esp-hal-procmacros, esp-metadata, esp-metadata, esp-metadata-generated, esp-println, esp-riscv-rt, esp-rom-sys, esp32, esp32c2, esp32c3, esp32c6, esp32h2, esp32s2, esp32s3, fnv, fugit, futures-core, futures-sink, futures-task, futures-util, gcd, hash32, hashbrown, heapless, ident_case, indexmap, itoa, log, nb, nb, num-traits, pin-project-lite, pin-utils, portable-atomic, portable-atomic-util, r0, ral-registers, rand_core, rand_core, riscv-macros, riscv-rt-macros, semihosting, serde_json, serde_yaml, smart-leds, smart-leds-trait, stable_deref_trait, toml_datetime, toml_edit, typenum, ufmt-write, vcell, version_check, windows-sys, windows-targets, windows_aarch64_gnullvm, windows_aarch64_msvc, windows_i686_gnu, windows_i686_gnullvm, windows_i686_msvc, windows_x86_64_gnu, windows_x86_64_gnullvm, windows_x86_64_msvc, xtensa-lx, xtensa-lx-rt, xtensa-lx-rt-proc-macros
+[1m[32mApache-2.0 OR MIT OR Zlib[0m (1): bytemuck
+[1m[32mISC[0m (2): riscv, riscv-pac
+[1m[32mMIT[0m (9): esp-synopsys-usb-otg, generic-array, rgb, strsim, strum, unsafe-libyaml, usb-device, void, winnow
+[1m[32mMIT OR Unlicense[0m (5): byteorder, jiff, jiff-static, memchr, winapi-util
+[1m[32mN/A[0m (1): esp32s3-demo

@@ -24,6 +24,12 @@ esp-backtrace = { version = "0.16.0", features = [
 esp-println = { version = "0.14.0", features = ["esp32s3", "log-04"] }
 log = { version = "0.4.27" }
 
+# WS2812 RGB LED control
+smart-leds = "0.4"
+heapless = "0.8"
+
+
+
 [profile.dev]
 # Rust debug is too slow.
 # For debug builds always builds with some optimization
