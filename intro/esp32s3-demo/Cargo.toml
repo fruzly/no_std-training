@@ -28,7 +28,9 @@ log = { version = "0.4.27" }
 smart-leds = "0.4"
 heapless = "0.8"
 
-
+embedded-hal = "1.0.0"
+nb = "1.1.0"
+libm = "0.2.15"
 
 [profile.dev]
 # Rust debug is too slow.
@@ -43,3 +45,6 @@ incremental      = false
 lto              = 'fat'
 opt-level        = 's'
 overflow-checks  = false
+
+[features]
+publish_before = []

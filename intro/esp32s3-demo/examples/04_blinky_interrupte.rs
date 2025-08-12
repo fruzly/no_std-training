@@ -21,8 +21,10 @@ static G_PIN: Mutex<RefCell<Option<Input>>> = Mutex::new(RefCell::new(None));
 static G_FLAG: Mutex<Cell<bool>> = Mutex::new(Cell::new(false));
 // 全局变量：用于存储闪烁延时，AtomicU32 是线程安全的整数类型
 static BLINK_DELAY: AtomicU32 = AtomicU32::new(500); // 初始延时 500ms
+// 按钮按下触发的中断次数
+static COUNTER: Mutex<Cell<u32>> = Mutex::new(Cell::new(0));
 
-#[handler] // 这是一个中断处理函数
+#[handler] // 这是一个中断处理函数，一定要保持 ISR 简短快速的法则
 fn gpio_handler() {
     // 进入临界区，只做必要的硬件操作
     critical_section::with(|cs| {
@@ -30,6 +32,8 @@ fn gpio_handler() {
         G_PIN.borrow_ref_mut(cs).as_mut().unwrap().clear_interrupt();
         // 设置标志位，通知 main 循环
         G_FLAG.borrow(cs).set(true);
+        // 在 ISR 内部直接计数
+        COUNTER.borrow(cs).set(COUNTER.borrow(cs).get() + 1);
     });
     // ISR 结束 - 总执行时间应该在微秒级别
 }
@@ -45,9 +49,9 @@ fn main() -> ! {
     io.set_interrupt_handler(gpio_handler);
     println!("GPIO interrupt handler registered");
 
+    // 数字GPIO外设
     // 配置 LED：将 gpio4 设置为输出引脚，初始状态为高电平
     let mut led = Output::new(peripherals.GPIO4, Level::High, OutputConfig::default());
-
     let config = InputConfig::default().with_pull(Pull::Up);
 
     // 2. 配置引脚为输入
@@ -60,7 +64,7 @@ fn main() -> ! {
     // 4. 将配置好的引脚移入全局变量
     critical_section::with(|cs| G_PIN.borrow_ref_mut(cs).replace(button));
 
-    let mut delay = esp_hal::delay::Delay::new();
+    let delay = esp_hal::delay::Delay::new();
 
     // 进入主循环
     loop {
@@ -72,7 +76,8 @@ fn main() -> ! {
         // 硬件延时
         delay.delay_millis(current_delay);
         
-        critical_section::with(|cs| {
+        /*         
+        critical_section::with(|cs| {            
             if G_FLAG.borrow(cs).get() {
                 // Clear global flag
                 G_FLAG.borrow(cs).set(false);
@@ -84,5 +89,31 @@ fn main() -> ! {
                 esp_println::println!("Delay changed to: {}", new_delay);
             }
         });
+        */
+
+        // 按键软件消抖处理方法：合并在短时间内发生的多次中断
+        let mut flag = false;
+        critical_section::with(|cs| {
+            if G_FLAG.borrow(cs).get() {
+                flag = true;
+            }
+        });
+
+        if flag {
+            // 按键消抖延时
+            delay.delay_millis(50);
+
+            // 清除全局标志位
+            critical_section::with(|cs| {
+                G_FLAG.borrow(cs).set(false);
+            });
+
+            // 修改延时值
+            let mut new_delay = BLINK_DELAY.load(Ordering::Relaxed);
+            new_delay = if new_delay <= 100 { 500 } else { new_delay - 100 };
+            BLINK_DELAY.store(new_delay, Ordering::Relaxed);
+            esp_println::println!("Delay changed to: {}", new_delay);
+        }
+
     }
 }
