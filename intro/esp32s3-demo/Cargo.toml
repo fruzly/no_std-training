@@ -32,6 +32,8 @@ embedded-hal = "1.0.0"
 nb = "1.1.0"
 libm = "0.2.15"
 
+nobcd = "0.2.0"
+
 [profile.dev]
 # Rust debug is too slow.
 # For debug builds always builds with some optimization

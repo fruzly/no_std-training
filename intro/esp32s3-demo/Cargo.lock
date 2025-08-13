@@ -647,6 +647,7 @@ dependencies = [
  "libm",
  "log",
  "nb 1.1.0",
+ "nobcd",
  "smart-leds",
 ]
 
@@ -855,6 +856,15 @@ name = "nb"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8d5439c4ad607c3c23abf66de8c8bf57ba8adcd1f129e699851a6e43935d339d"
+
+[[package]]
+name = "nobcd"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2ed1615ad585d0265b0b29c1ade3ac73aba6b0e23dffbcec43bd7b4817f94bf3"
+dependencies = [
+ "num-traits",
+]
 
 [[package]]
 name = "num-traits"
