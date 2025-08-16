@@ -28,11 +28,22 @@ log = { version = "0.4.27" }
 smart-leds = "0.4"
 heapless = "0.8"
 
-embedded-hal = "1.0.0"
 nb = "1.1.0"
 libm = "0.2.15"
 
 nobcd = "0.2.0"
+
+esp-hal-embassy = {version = "0.9.0", features = ["esp32s3", "log-04"]}
+
+embedded-hal-async = "1.0.0"
+embedded-io-async = "0.6.1"
+embedded-hal = "1.0.0"
+
+embassy-executor = "0.7.0"
+embassy-futures = "0.1.1"
+embassy-sync = "0.7.1"
+embassy-time = "0.4.0"
+
 
 [profile.dev]
 # Rust debug is too slow.
