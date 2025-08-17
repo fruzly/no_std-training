@@ -44,6 +44,8 @@ embassy-futures = "0.1.1"
 embassy-sync = "0.7.1"
 embassy-time = "0.4.0"
 
+static_cell = "2.1.0"
+
 
 [profile.dev]
 # Rust debug is too slow.

@@ -712,6 +712,7 @@ dependencies = [
  "nb 1.1.0",
  "nobcd",
  "smart-leds",
+ "static_cell",
 ]
 
 [[package]]
